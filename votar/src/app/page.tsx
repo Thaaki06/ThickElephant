@@ -1,16 +1,20 @@
 "use client";
-
+// Import necessary modules
 import Image from 'next/image'
 import Candidate from '@/components/Candidate'
 import { useState } from 'react';
-
+ 
+// Define the Home component
 export default function Home() {
+  // Initialize state to manage the checked candidate ID
   const [checkedId, setCheckedId] = useState("");
-
+ 
+  // Function to handle checkbox change
   const handleChange = (id: string) => {
     setCheckedId(id);
   };
-
+ 
+  // Define candidate data
   const candidates = [{
     id: '1',
     firstName: 'John',
@@ -32,11 +36,12 @@ export default function Home() {
     party: 'Blue Party',
     manifest: 'I will make the world a bluer place'
   }];
-
-
+ 
+  // Return JSX for rendering
   return (
-    <span>
-      <h1>Vote for your favourite candidate</h1>
+    <div className="flex flex-col items-center gap-4">
+      <h1 className="text-2xl font-bold mb-4">Vote for your favourite candidate</h1>
+      {/* Map over candidates and render Candidate components */}
       {candidates.map((candidate) => (
         <Candidate
           key={candidate.id}
@@ -47,12 +52,11 @@ export default function Home() {
           candidate={candidate}
         />
       ))}
-      <Image
-        src="/vercel.svg"
-        alt="Vercel Logo"
-        width={72}
-        height={16}
-      />
-    </span>
+      {/* Render Vercel logo */}
+      <button className="bg-black text-white p-2 rounded-md">
+        Vote Now
+      </button>
+    </div>
   )
 }
+ 
