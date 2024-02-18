@@ -8,6 +8,8 @@ import { registerValidation } from "@/validationSchema/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import database from "@/util/database";
+import {Voter} from "@/models/voter"; 
 
 const Register = () => {
     const router = useRouter();
@@ -24,6 +26,7 @@ const Register = () => {
             alert("Something went wrong please try again");
         })
     }
+    
 
     return (
         <div className="h-screen flex justify-center items-center bg-gradient-to-br from-yellow-400/20 via-blue-300 to-purple-400/60">
