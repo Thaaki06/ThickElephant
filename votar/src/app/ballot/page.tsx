@@ -3,9 +3,9 @@ import { AuthContext } from "@/provider/AuthProvider";
 import { useState, useEffect } from "react";
 import database from "@/util/database";
 
-const BallotPage = () => {
+const BallotPg = () => {
   const { user }: any = AuthContext();
-  // get all voters
+  // attain all voters
   const [voters, setVoters] = useState([]);
 
   const fetchVoters = async () => {
@@ -43,4 +43,4 @@ const BallotPage = () => {
   )
 }
 
-export default BallotPage
+export default BallotPg
