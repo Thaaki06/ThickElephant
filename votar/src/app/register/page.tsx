@@ -1,6 +1,6 @@
 
 "use client";
-
+ 
 import * as z from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -21,15 +21,14 @@ import {
     SelectItem,
     Select,
 } from "@/components/ui/select";
-
+ 
 import database from "@/util/database";
 import { Voter } from "@/models/voter";
 import useAuthentication from "@/hooks/useAuthentication";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/util/firebase";
-import { useRouter } from "next/navigation";
-import { BALLOT_ROUTE, HOME_ROUTE } from "@/constants/routes";
-
+ 
+ 
 const provinces = [
     {
         value: "WC",
@@ -64,7 +63,18 @@ const provinces = [
         label: "Limpopo",
     },
 ];
-
+ 
+const validateDisposableEmail = async (email: string): Promise<boolean> => {
+    try {
+        const response = await fetch(`https://disposable.debounce.io/?email=${email}`);
+        const data = await response.json();
+        return data.disposable === "true";
+    } catch (error) {
+        console.error("Error validating disposable email:", error);
+        return false;
+    }
+};
+ 
 const formSchema = z
     .object({
         firstName: z.string().min(2, "First name is too short"),
@@ -80,14 +90,21 @@ const formSchema = z
     }, {
         message: "Passwords do not match",
         path: ["passwordConfirm"],
+    }).refine(async (data) => {
+        const isDisposable = await validateDisposableEmail(data.emailAddress);
+        return !isDisposable;
+    }, {
+        message: "Disposable emails are not allowed",
+        path: ["emailAddress"],
     });
-
+ 
+ 
 export default function Home() {
-
-    const router = useRouter();
-
+ 
+ 
+ 
     useAuthentication();
-
+ 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -100,12 +117,14 @@ export default function Home() {
             passwordConfirm: "",
         },
     });
-
+ 
     const province = form.watch("province");
-
-    const handleSubmit = async(values: z.infer<typeof formSchema>) => {
-
-
+ 
+ 
+ 
+    const handleSubmit = async (values: z.infer<typeof formSchema>) => {
+ 
+ 
         createUserWithEmailAndPassword(auth, values.emailAddress, values.password)
             .then(async (response) => {
                 const voter: Voter = {
@@ -116,21 +135,21 @@ export default function Home() {
                     nationalId: values.nationalId,
                     province: values.province,
                 };
-        
+ 
                 await database.addVoter(voter);
-                
+ 
                 alert("User Register Successfully");
                 // reset();
-                router.push(BALLOT_ROUTE);
+                // router.push(PROFILE_ROUTE);
             })
             .catch(e => {
                 console.log("catch ", e.message);
                 alert("Something went wrong please try again");
             });
-
-        
+ 
+ 
     };
-
+ 
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
             <Form {...form}>
