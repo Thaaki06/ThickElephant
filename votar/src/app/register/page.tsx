@@ -141,7 +141,7 @@ export default function Home() {
  
                 await database.addVoter(voter);
  
-                alert("User Register Successfully");
+                alert("User Registered Successfully");
                 // reset();
                 router.push(BALLOT_ROUTE);
             })
