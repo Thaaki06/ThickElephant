@@ -18,9 +18,15 @@ const Header = () => {
     }
 
     return (
-        <header className="h-20 bg-gradient-to-br from-yellow-400/20 via-blue-300 to-purple-400/60 flex px-10 drop-shadow-[0px_2px_10px_rgba(2,0,0) text-black">
-            <nav className="w-full mx-auto flex justify-between items-center px-2 text-black font-serif text-xl">
-                <Link href={HOME_ROUTE}><div>Logo</div></Link>
+        <header className="h-20 bg-blue-300 flex px-10 drop-shadow-[0px_2px_10px_rgba(2,0,0) text-black">
+            <nav className="w-full mx-auto flex justify-between items-center px-2 text-black  text-xl">
+               {/* <Link href={HOME_ROUTE}><div>View Results</div></Link> */}
+
+                <Link href={HOME_ROUTE} className="text-xl font-sans text-black flex items-center gap-3">
+                    <img
+                        src="https://companieslogo.com/img/orig/SOLB.VI-154fc251.png?t=1597967504"
+                        className="mx-auto h-14 w-auto" />
+                    View Results</Link>
                 <ul className="flex gap-4">
                     {!user?.isLogin &&
                         <>

@@ -155,11 +155,13 @@ export default function Home() {
  
     return (
         <main className="flex min-h-screen flex-col items-center justify-between p-24">
+            <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl m-5">
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(handleSubmit)}
-                    className="max-w-md w-full flex flex-col gap-4"
+                    className="p-20 space-y-7"
                 >
+                    <p className="text-center text-3xl bg-blue-300 p-5 rounded-lg font-bold mb-4">Register Now!</p>
                     <FormField
                         control={form.control}
                         name="firstName"
@@ -293,11 +295,12 @@ export default function Home() {
                             );
                         }}
                     />
-                    <Button type="submit" className="w-full">
+                    <Button type="submit" className="w-full bg-blue-300">
                         Submit
                     </Button>
                 </form>
             </Form>
+            </div>
         </main>
     );
 }
