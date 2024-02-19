@@ -24,7 +24,7 @@ const Confirmation: React.FC<ModalProps & { onSubmit: () => void }> = ({ candida
             Vote confirmation
           </DialogTitle>
           <p>
-            You are about to vote for {candidate.firstName} {candidate.lastName} of the {candidate.party} party. Are you sure you want to proceed?
+            You are about to vote for {candidate.firstName} {candidate.lastName} of the {candidate.party} . Are you sure you want to proceed?
           </p>
         </DialogHeader>
 

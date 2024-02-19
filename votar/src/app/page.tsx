@@ -107,13 +107,13 @@ const resultspg = () => {
     });
     const uniqueProvinces = Array.from(provinces); // Convert set to array
     const colors = [
-      'rgba(255, 99, 132, 0.2)',
-      'rgba(54, 162, 235, 0.2)',
-      'rgba(255, 206, 86, 0.2)',
-      'rgba(75, 192, 192, 0.2)',
-      'rgba(153, 102, 255, 0.2)',
-      'rgba(255, 159, 64, 0.2)',
-    ]; // Define your own color scheme or use Chart.js built-in color schemes
+  'rgba(255,  99,  132,  0.5)', // Darker red
+  'rgba(54,  162,  235,  0.5)', // Darker blue
+  'rgba(255,  206,  86,  0.5)', // Darker yellow
+  'rgba(75,  192,  192,  0.5)', // Darker teal
+  'rgba(153,  102,  255,  0.5)', // Darker purple
+  'rgba(255,  159,  64,  0.5)', // Darker orange
+];
 
     const colorMap = {}; // Map to store colors for each province
     uniqueProvinces.forEach((province, index) => {
@@ -219,75 +219,77 @@ const resultspg = () => {
   }
 
   return (
-    <div>
-      <h2>Results</h2>
+    //items-center
+      <div className="flex flex-col justify-center p-8"> 
+        <section className="text-center mb-8">
+          <h1 className="text-3xl font-bold mb-4">Election Results</h1>
+    
+          <h2 className="text-2xl font-semibold mb-2">Overall Voting Results</h2>
+          <p className="mb-4">Percentage of users voted: {(votes.length / voters.length *   100).toFixed(2)}%</p>
+          <p className="mb-4">Total votes: {getTotalVotes()}</p>
+        </section>
+    <div className="grid grid-cols-3 gap-3">
+        <section className="text-center mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Results by Party</h2>
+          {
+            Object.entries(getVotesByParty()).map(([partyId, votes]) => (
+              <p key={partyId} className="mb-2">{candidates[partyId]?.party}: {votes} votes</p>
+            ))
+          }
+        </section>
+    
+        <section className="text-center mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Results by Province</h2>
+          {
+            Object.entries(getVotesByProvince()).map(([province, votes]) => (
+              <p key={province} className="mb-2">{province}: {votes} votes</p>
+            ))
+          }
+        </section>
+    
+        <section className="text-center mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Results by Party (Percentage)</h2>
+          {
+            Object.entries(getPercentageOfVotesByParty()).map(([partyId, percentage]) => (
+              <p key={partyId} className="mb-2">{candidates[partyId]?.party}: {percentage.toFixed(2)}%</p>
+            ))
+          }
+        </section>
+        </div>
 
-      <h3>
-        Percentage of users voted: 
-        {
-          // Calculate the percentage and round to two decimal places
-          (Number((votes.length / voters.length * 100).toFixed(2)))
-        } %
-      </h3>
+        
+        
+       
+    
+        <section className="text-center mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Voting Distribution</h2>
+          <Bar data={getBarChartDataAndOptions().data} options={getBarChartDataAndOptions().options} />
+        </section>
+    
+        <section className="text-center mb-8">
+          <h2 className="text-2xl font-semibold mb-2">Voting Distribution by Party and Province</h2>
+          <Bar data={getBarChartDataAndOptionsForStacked().data} options={getBarChartDataAndOptionsForStacked().options} />
+        </section>
 
-      <p>Total votes: {getTotalVotes()}</p>
-      <h2>Results by Party</h2>
-      {
-        Object.entries(getVotesByParty()).map(([partyId, votes]) => (
-          <p key={partyId}>Party {partyId}: {votes}</p>
-        ))
-      }
-      <h2>Results by Province</h2>
-      {
-        Object.entries(getVotesByProvince()).map(([province, votes]) => (
-          <p key={province}>{province}: {votes}</p>
-        ))
-      }
+        <section className="text-center mb-8">
+  <h2 className="text-2xl font-semibold mb-2">Results by Party and Province</h2>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {
+      Object.entries(getVotesByPartyAndProvince()).map(([partyId, votesByProvince]) => (
+        <div key={partyId} className="mb-4">
+          <h3 className="text-xl font-semibold mb-2">{candidates[partyId]?.party}</h3>
+          {
+            Object.entries(votesByProvince).map(([province, votes]) => (
+              <p key={province} className="mb-2">{province}: {votes} votes</p>
+            ))
+          }
+        </div>
+      ))
+    }
+  </div>
+</section>
+      </div>
 
-
-      <h2>Results by Party (Percentage)</h2>
-      {
-        Object.entries(getPercentageOfVotesByParty()).map(([partyId, percentage]) => (
-          <p key={partyId}>Party {partyId}: {percentage.toFixed(2)}%</p>
-        ))
-      }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <Bar data={getBarChartDataAndOptions().data} options={getBarChartDataAndOptions().options} />
-
-      <h2>Results by Party and Province</h2>
-      {
-        Object.entries(getVotesByPartyAndProvince()).map(([partyId, votesByProvince]) => (
-          <div key={partyId}>
-            <h3>Party {partyId}</h3>
-            {
-              Object.entries(votesByProvince).map(([province, votes]) => (
-                <p key={province}>{province}: {votes}</p>
-              ))
-            }
-          </div>
-        ))
-      }
-
-      <Bar data={getBarChartDataAndOptionsForStacked().data} options={getBarChartDataAndOptionsForStacked().options} />
-    </div>
-  )
-}
-
+    );
+};
 export default resultspg
