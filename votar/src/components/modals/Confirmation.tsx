@@ -14,7 +14,7 @@ const Confirmation: React.FC<ModalProps & { onSubmit: () => void }> = ({ candida
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant="outline">Vote Now</Button>
+        <Button variant="outline">Vote Now!</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
@@ -29,7 +29,7 @@ const Confirmation: React.FC<ModalProps & { onSubmit: () => void }> = ({ candida
         </DialogHeader>
 
         <DialogFooter>
-          <Button onClick={handleConfirmVote}>Yes, I am sure</Button>
+          <Button onClick={handleConfirmVote}>Yes, I am certain</Button>
           <DialogClose asChild>
             <Button type="button" variant="destructive">
               Cancel

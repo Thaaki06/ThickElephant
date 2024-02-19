@@ -59,7 +59,7 @@ export default function Home() {
           votes.forEach((vote) => {
             if (vote.voter.user_id === userID) {
               // Perform your action here for the matching vote
-              alert("You've already founded!")
+              alert("You've already voted!")
               router.push("/");
             }
             // Add more code here if needed for non-matching votes
@@ -116,7 +116,7 @@ export default function Home() {
   // Return JSX for rendering
   return (
     <div className="flex flex-col items-center gap-4">
-      <h1 className="text-2xl font-bold mb-4">Vote for your favourite candidate</h1>
+      <h1 className="text-2xl font-bold mb-4">Vote for your favourite candidate today!</h1>
       {voter ? ( // Check if voter is found
         <div className="flex flex-col items-start gap-4">
           <p>
@@ -135,7 +135,7 @@ export default function Home() {
           ))}
         </div>
       ) : (
-        <p>Loading user data...</p> // Render loading message while waiting for voter to be found
+        <p>Loading candidate information...</p> // Render loading message while waiting for voter to be found
       )}
   
       {selectedCandidate && (

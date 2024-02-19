@@ -37,7 +37,7 @@ const ManifestoModel: React.FC<ModalProps> = ({ candidate }) => {
         <DialogFooter>
           <DialogDescription>
 
-          Information verified by the Electoral Commission of South Africa
+          The Electoral Commission of South Africa has verified this candidates information.
           </DialogDescription>
 
         </DialogFooter>

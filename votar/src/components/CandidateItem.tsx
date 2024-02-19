@@ -27,14 +27,14 @@ const Candidate = ({ id, label, checked, onChange, candidate }: CandidateProps) 
         <div className='flex flex-col justify-start w-40'>
             <section>
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarImage src= {candidate.profileImage} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <span className="text-lg font-semibold">{candidate.firstName} {candidate.lastName}</span>
             </section>
             <section>
                 <Avatar>
-                    <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                    <AvatarImage src= {candidate.partyLogo} alt="@shadcn" />
                     <AvatarFallback>CN</AvatarFallback>
                 </Avatar>
                 <span className="text-sm font-semibold">{candidate.party}</span>
