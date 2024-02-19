@@ -1,5 +1,5 @@
 "use client";
-import { HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
+import { BALLOT_ROUTE, HOME_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, REGISTER_ROUTE } from "@/constants/routes";
 import { AuthContext } from "@/provider/AuthProvider";
 import { auth } from "@/util/firebase";
 import { signOut } from "firebase/auth";
@@ -36,7 +36,7 @@ const Header = () => {
                     }
                     {user?.isLogin &&
                         <>
-                            <Link href={PROFILE_ROUTE}><li>Profile</li></Link>
+                            <Link href={BALLOT_ROUTE}><li>View Ballots</li></Link>
                             <li className=" cursor-pointer" onClick={logOut}>Logout</li>
                         </>
                     }
