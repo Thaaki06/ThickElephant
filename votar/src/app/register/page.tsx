@@ -27,6 +27,8 @@ import { Voter } from "@/models/voter";
 import useAuthentication from "@/hooks/useAuthentication";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/util/firebase";
+import { BALLOT_ROUTE } from "@/constants/routes";
+import { useRouter } from "next/navigation";
  
  
 const provinces = [
@@ -119,7 +121,8 @@ export default function Home() {
     });
  
     const province = form.watch("province");
- 
+    
+    const router = useRouter();
  
  
     const handleSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -140,7 +143,7 @@ export default function Home() {
  
                 alert("User Register Successfully");
                 // reset();
-                // router.push(PROFILE_ROUTE);
+                router.push(BALLOT_ROUTE);
             })
             .catch(e => {
                 console.log("catch ", e.message);
